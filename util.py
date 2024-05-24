@@ -4,13 +4,14 @@ from collections import defaultdict
 DATA = pd.read_csv("phone.csv")
 
 # variabel global
-n = len(DATA)                           # jumlah data
+banyak_data = len(DATA)                           # jumlah data
 template = "{:<20} | {:<30} | {:<30}"   # template untuk print
 
 # Rumus untuk menghitung data numerik
 # Mean
 def myMean(data, atribut):
     # mean = Σx / n
+    n = len(data[atribut])
     jumlah = 0
     for i in range(n):
         jumlah += data[atribut][i]
@@ -18,6 +19,7 @@ def myMean(data, atribut):
 
 # Median
 def myMedian(data, atribut):
+    n = len(data[atribut])
     sorted_data = sorted(data[atribut])
     mid = n // 2
     
@@ -49,6 +51,7 @@ def myModus(data, atribut, tolerance=1e-5):
 
 # Maximum, Minimum, Range
 def myMax(data, atribut):
+    n = len(data[atribut])
     max = data[atribut][0]
     for i in range(1, n):
         if data[atribut][i] > max:
@@ -56,6 +59,7 @@ def myMax(data, atribut):
     return max
 
 def myMin(data, atribut):
+    n = len(data[atribut])
     min = data[atribut][0]
     for i in range(1, n):
         if data[atribut][i] < min:
@@ -68,6 +72,7 @@ def myRange(data, atribut):
 
 # Variance dan Standard Deviation
 def myVariance(data, atribut):
+    n = len(data[atribut])
     # variance = Σ(x - mean)^2 / (n - 1)
     mean = myMean(data, atribut)
     jumlah = 0
@@ -81,6 +86,7 @@ def myStdDev(data, atribut):
 
 # Quartile dan Interquartile Range
 def percentile(data, p):
+    n = len(data)
     k = (n - 1) * p / 100
     f = int(k)      # indeks bawah terdekat dari k
     c = k - f       # nilai desimal dari k
@@ -103,6 +109,7 @@ def myIQR(data, atribut):
 # Skewness
 # https://www.slideshare.net/slideshow/3-skewness-kurtosispptx/255323562
 def mySkewness(data, atribut):
+    n = len(data[atribut])
     # koefisien_skewness = Σ((x - mean) / stdDev)^3
     # pengali = n / ((n - 1) * (n - 2))
     # skewness = pengali * koefisien_skewness
@@ -116,6 +123,7 @@ def mySkewness(data, atribut):
 
 # Kurtosis
 def myKurtosis(data, atribut):
+    n = len(data[atribut])
     # koefisien_kurtosis = Σ((x - mean) / stdDev)^4
     # pengali = n * (n + 1) / ((n - 1) * (n - 2) * (n - 3))
     # pengurang = 3 * (n - 1)² / ((n - 2) * (n - 3))
